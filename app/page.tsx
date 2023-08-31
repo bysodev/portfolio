@@ -12,16 +12,6 @@ import Link from 'next/link';
 import { frontend } from '@/config/skills';
 import ContentSkill from '@/components/containers/contentSkills';
 
-export const getHashFromRef = (href: string) => {
-  const regex = /^#(.*)/;
-  const match = regex.exec(href);
-  if (match) {
-      return match[1];
-  } else {
-      return '';
-  }
-}
-
 export default function Home() {
   const router = useRouter();  
   const {theme, settheme} = useContext(ThemeContext);
