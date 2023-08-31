@@ -1,113 +1,189 @@
+'use client'
+import NavBar from '@/components/navegation/NabBar'
+import { ThemeContext } from '@/utils/context/ThemeContext';
 import Image from 'next/image'
+import { useRouter, usePathname } from 'next/navigation'
+import {createRef, useContext, useEffect, useRef, useState} from 'react'
+import Person from '@/public/img/person.jpeg'
+import PersonRe from '@/public/img/person.png'
+import { PHP, Js, Astro, Document } from "@react-symbols/icons"
+import { BsLinkedin, BsFillEnvelopeAtFill, BsGithub } from "react-icons/bs";
+import Link from 'next/link';
+import { frontend } from '@/config/skills';
+import ContentSkill from '@/components/containers/contentSkills';
+
+export const getHashFromRef = (href: string) => {
+  const regex = /^#(.*)/;
+  const match = regex.exec(href);
+  if (match) {
+      return match[1];
+  } else {
+      return '';
+  }
+}
 
 export default function Home() {
+  const router = useRouter();  
+  const {theme, settheme} = useContext(ThemeContext);
+  const [pathname, setPathname] = useState('inicio');
+
+  useEffect(() => {
+    // Obtener los rectángulos de los elementos
+    let sections = document.querySelectorAll('section')
+
+    window.onscroll=()=>{
+      sections.forEach(sec=> {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id') || ''
+        if( top > offset && top < offset + height ){
+          router.push(`#${id}`, {scroll: false})
+          setPathname(`${id}`);
+        }
+      })
+    }
+  }, []);
+  
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <body className={`${theme} grid place-items-center w-full`}>
+      <div className='grid place-items-center'>
+        <div className='fixed w-11/12 xl:w-4/6 z-10 mt-36'>
+          <NavBar theme={theme} settheme={settheme} pathname={pathname} />
         </div>
       </div>
+      <section id='inicio' className={`w-full h-screen dark:bg-slate-950 grid grid-flow-col place-items-center`}>
+        <div className='grid place-items-center w-full h-full'>
+          <div className="grid grid-rows-3 grid-flow-col mt-32 w-11/12 xl:w-4/6">
+            <div className="pt-4 col-span-3 md:row-span-2 md:col-span-2 md:rounded-tl-2xl">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-500 to bg-cyan-500 bg-clip-text text-transparent">Bryan Solórzano</h1>
+              <hr /> <br />
+              <p className="text-2xl md:text-3xl font-bold capitalize font-code text-black dark:text-white">Information Technology Engineer & FullStack developer</p>
+              <br />
+              <p className="sm:mb-4 text-gray-500 dark:text-gray-400 text-step-0">+1 año de experiencia en desarrollo web, aplicando buenas prácticas y metodologías ágiles para garantizar resultados eficientes y de calidad.</p>
+            </div>
+            <div className=" pt-4 pl-4 col-span-3 md:col-span-2 rounded-b-lg md:rounded-br-none md:rounded-bl-2xl">
+              <ul className="flex gap-4 items-center">
+                <Link href={'https://www.linkedin.com/'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
+                  <BsLinkedin className='text-3xl'></BsLinkedin>
+                </Link>
+                <Link href={'https://mail.google.com/mail/u/0/#inbox'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
+                  <BsFillEnvelopeAtFill className='text-3xl'></BsFillEnvelopeAtFill>
+                </Link>
+                <Link href={'https://github.com/bysodev'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
+                  <BsGithub className='text-3xl'></BsGithub>
+                </Link>
+              </ul>
+            </div>
+            <div className="grid place-items-center row-span-1 col-span-3 md:col-span-2 md:row-span-3 bg-teal-900 order-first md:order-last shape">
+              <div className='w-48 md:w-96'>
+                <Image className='rounded-full' src={PersonRe} alt='' width={400} height={400} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+     
+      <section id='conoceme' className='w-full h-auto dark:bg-slate-950'>
+        <div className='grid place-items-center w-full h-full'>
+          <div className='flex flex-col md:flex-row justify-between w-11/12 xl:w-4/6'>
+            <div className='grid place-items-center md:w-2/5'>
+              <div className='mb-8'>
+                <div className='max-w-xs text-3xl font-bold tracking-widest'>
+                  <h5 className='dark:text-white'>CONOCEME</h5>
+                  <br />
+                  <hr />
+                  <br />
+                </div>
+                
+                <p className='dark:text-white'>A finales del 2019 comence una carrera buscando la Ingenieria en Tecnologías de la Información, 
+                  en cada semestre seguí desarrollando destrezas y ampliando conocimientos en temas, como redes, gestión de proyectos, bases de datos, programación, inteligencia artificial, arquitectura de software, entre muchas cosas más. 
+                </p>
+                <br />
+                <p className='font-mono font-semibold dark:text-gray-300'>
+                  Mi objetivo siempre fue desarrollar proyectos que fueran un reto, es así como comence bootcams, cursos y en los ultimos niveles de mi carrera consegui un trabajo de medio tiempo como programador full stack.
+                </p>
+               
+              </div>
+              <div className=''>
+                <div className='max-w-xs text-3xl font-bold tracking-widest'>
+                  <h5 className='dark:text-white'>EXPERIENCIA</h5>
+                  <br />
+                  <hr />
+                  <br />
+                </div>
+                <ol className="flex-1 relative border-l border-gray-200 dark:border-gray-700">
+                  <li className="mb-10 ml-4">
+                    <div className="absolute w-3 h-3 bg-gray-200 rounded-s-sm mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
+                    </div>
+                    <div>
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">01 octubre 2023</time>
+                      <span className="text-sm text-gray-400 dark:text-gray-500"> - </span>
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Actualmente</time>
+                    </div>
+                    <h3 className="text-step-0 font-semibold text-gray-900 dark:text-white">Full Stack Developer</h3>
+                    <p className="mb-2 font-normal text-gray-500 dark:text-gray-400">Desarrollo y mantenimiento de módulos en un software CRM y ERP dedicada a temas contable, sostenido por la empresa IDRX TECHNOLOGY S.A - Ecuador </p>
+                    <ul className="flex flex-wrap items-center gap-3">
+                    <li> <PHP width={35} height={35} /></li>
+                    <li> <Js width={35} height={35} /></li>
+                    <li> <Astro width={35} height={35} /></li>
+                    <li> <Document width={35} height={35} /></li>
+                    </ul>
+                  </li>
+                  <li className="mb-10 ml-4">
+                    <div className="absolute w-3 h-3 bg-gray-200 rounded-s-sm mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
+                    </div>
+                    <div>
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">10 ene 2023</time>
+                      <span className="text-sm text-gray-400 dark:text-gray-500"> - </span>
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">10sep 2022</time>
+                    </div>
+                    <h3 className="text-step-0 font-semibold text-gray-900 dark:text-white">Frontend Developer</h3>
+                    <p className="mb-2 font-normal text-gray-500 dark:text-gray-400">Desarrollo y mantenimiento de módulos en diferentes aplicaciones web para la empresa</p>
+                    <ul className="flex flex-wrap items-center gap-3">
+                      <li>  PHP</li>
+                      <li>JAVASCRIPT</li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+            </div>
+            <div className='md:w-1/2'>
+              <div className=''>
+                <div className='max-w-xs text-3xl font-bold tracking-widest'>
+                  <h5 className='dark:text-white'>SKILLS</h5>
+                  <br />
+                  <hr />
+                  <br />
+                </div>
+                <div>
+                  <ul className="mb-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center justify-center gap-2">
+                    {
+                        frontend.map( font => (
+                            <ContentSkill icon={font.icon} nombre={font.nombre} color={font.color} />
+                        ) )
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <section id='proyectos' className='h-screen dark:bg-slate-950'>
+        <h5>PROYECTOS</h5>
+      </section>
+      <section id='contacto' className='h-screen dark:bg-slate-950'>
+      <h5>CONTACTO</h5>
+      </section>
+      <footer>
+        <div className='flex justify-items-center dark:bg-slate-950'>
+          <h6>@Bryan Solórzano - 2023</h6>
+        </div>
+      </footer>
+    </body>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+  
   )
 }
