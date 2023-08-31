@@ -1,7 +1,6 @@
 'use client'
 import NavBar from '@/components/navegation/NabBar'
 import { ThemeContext } from '@/utils/context/ThemeContext';
-import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import {createRef, useContext, useEffect, useRef, useState} from 'react'
 import Person from '@/public/img/person.jpeg'
@@ -67,7 +66,14 @@ export default function Home() {
             </div>
             <div className="grid place-items-center row-span-1 col-span-3 md:col-span-2 md:row-span-3 bg-teal-900 order-first md:order-last shape">
               <div className='w-48 md:w-96'>
-                <Image className='rounded-full' src={PersonRe} alt='' width={400} height={400} />
+                {/* <Image className='rounded-full' src={PersonRe} alt='' width={400} height={400} /> */}
+                <img
+                  className="rounded-full"
+                  src='https://vidcache.net:8161/static/cb5fde05f1ae385b5fe690856392b5d769d18bad/person-removebg-preview.png'
+                  alt=""
+                  width={400}
+                  height={400}
+                />
               </div>
             </div>
           </div>
@@ -150,7 +156,7 @@ export default function Home() {
                   <ul className="mb-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center justify-center gap-2">
                     {
                         frontend.map( font => (
-                            <ContentSkill icon={font.icon} nombre={font.nombre} color={font.color} />
+                            <ContentSkill icon={font.icon} nombre={font.nombre} color={font.color} key={font.nombre}/>
                         ) )
                     }
                   </ul>
