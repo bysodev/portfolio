@@ -14,12 +14,7 @@ const navi = [
     {
         name: 'proyectos',
         href: '#proyectos'
-    },
-    {
-        name: 'contacto',
-        href: '#contacto'
     }
-
 ]
 
 export default function NavBar({theme, settheme, pathname}) {

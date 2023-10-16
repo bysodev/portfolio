@@ -5,12 +5,11 @@ import { useRouter, usePathname } from 'next/navigation'
 import {createRef, useContext, useEffect, useRef, useState} from 'react'
 import Person from '@/public/img/person.jpeg'
 import PersonRe from '@/public/img/person.png'
-import { PHP, Js, Astro, Document } from "@react-symbols/icons"
-import { BsLinkedin, BsFillEnvelopeAtFill, BsGithub } from "react-icons/bs";
+import { PHP, Js, Astro, Document, Node, Database } from "@react-symbols/icons"
+import { BsLinkedin, BsFillEnvelopeAtFill, BsGithub, BsBootstrap, BsFiletypeSql } from "react-icons/bs";
 import Link from 'next/link';
 import { frontend } from '@/config/skills';
 import ContentSkill from '@/components/containers/contentSkills';
-
 export default function Home() {
   const router = useRouter();  
   const {theme, settheme} = useContext(ThemeContext);
@@ -53,7 +52,7 @@ export default function Home() {
             </div>
             <div className=" pt-4 pl-4 col-span-3 md:col-span-2 rounded-b-lg md:rounded-br-none md:rounded-bl-2xl">
               <ul className="flex gap-4 items-center">
-                <Link href={'https://www.linkedin.com/'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
+                <Link href={'https://www.linkedin.com/in/bryan-sol%C3%B3rzano-59613422a'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
                   <BsLinkedin className='text-3xl'></BsLinkedin>
                 </Link>
                 <Link href={'https://mail.google.com/mail/u/0/#inbox'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
@@ -122,25 +121,14 @@ export default function Home() {
                     <ul className="flex flex-wrap items-center gap-3">
                     <li> <PHP width={35} height={35} /></li>
                     <li> <Js width={35} height={35} /></li>
-                    <li> <Astro width={35} height={35} /></li>
-                    <li> <Document width={35} height={35} /></li>
+                    <li> <Database width={35} height={35} /></li>
+                    <li> <BsFiletypeSql style={{color: '#C70039', fontSize: '25px'}} /></li>
+                    <li> <BsBootstrap style={{color: '#793FDF', fontSize: '25px'}} /></li>
+                    
+                    
                     </ul>
                   </li>
-                  <li className="mb-10 ml-4">
-                    <div className="absolute w-3 h-3 bg-gray-200 rounded-s-sm mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-                    </div>
-                    <div>
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">10 ene 2023</time>
-                      <span className="text-sm text-gray-400 dark:text-gray-500"> - </span>
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">10sep 2022</time>
-                    </div>
-                    <h3 className="text-step-0 font-semibold text-gray-900 dark:text-white">Frontend Developer</h3>
-                    <p className="mb-2 font-normal text-gray-500 dark:text-gray-400">Desarrollo y mantenimiento de módulos en diferentes aplicaciones web para la empresa</p>
-                    <ul className="flex flex-wrap items-center gap-3">
-                      <li>  PHP</li>
-                      <li>JAVASCRIPT</li>
-                    </ul>
-                  </li>
+                 
                 </ol>
               </div>
             </div>
@@ -167,15 +155,34 @@ export default function Home() {
         </div>
       </section>
 
-      <section id='proyectos' className='h-screen dark:bg-slate-950'>
-        <h5>PROYECTOS</h5>
+      <section id='proyectos' className='w-full h-screen dark:bg-slate-950 text-gray-100'>
+        <div className='grid place-items-center '>
+          <div className='flex flex-col md:flex-row justify-between w-11/12 xl:w-4/6'>
+            <div className=''>
+              <div className='max-w-xs text-3xl font-bold tracking-widest'>
+                  <h5 className='dark:text-white'>PROYECTOS</h5>
+                  <br />
+                  <hr />
+                  <br />
+                </div>
+              <div className='flex justify-between'>
+                <span>Por el momento visitar el repositorio de </span>
+                <Link href={'https://github.com/bysodev'} target='_blank' className='dark:text-white hover:scale-110 transition-transform duration-100 ease-in-out' >
+                  <BsGithub className='text-3xl'></BsGithub>
+                </Link>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
       </section>
-      <section id='contacto' className='h-screen dark:bg-slate-950'>
-      <h5>CONTACTO</h5>
-      </section>
-      <footer>
-        <div className='flex justify-items-center dark:bg-slate-950'>
-          <h6>@Bryan Solórzano - 2023</h6>
+    
+      <footer className='w-full dark:bg-slate-950'>
+        <div className='grid place-items-center'>
+          <div className='grid place-items-center m-16 w-11/12 dark:text-gray-100'>
+            <h6>@Bryan Solórzano - 2023</h6>
+          </div>
         </div>
       </footer>
     </body>
